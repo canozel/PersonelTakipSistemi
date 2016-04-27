@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+
+    <script>
+      var map;
+      var marker;
+      var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      var labelIndex = 0;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat:  39.1667 , lng: 35.6667},
+          zoom: 7
+        });
+        var geocoder = new google.maps.Geocoder();
+
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+        });
+
+        google.maps.event.addListener(map, 'click', function(event) {
+              addMarker(event.latLng, map);
+            });
+            // Add a marker at the center of the map.
+        addMarker(bangalore, map);
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            resultsMap.setCenter(results[0].geometry.location);
+            
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+          
+        });
+      }
+          // Adds a marker to the map.
+        function addMarker(location, map) {
+            // Add the marker at the clicked location, and add the next-available label
+            // from the array of alphabetical characters.
+            if ( marker ) {
+              marker.setPosition(location);
+            } else {
+              marker = new google.maps.Marker({
+                position: location,
+                label: labels[labelIndex++ % labels.length],
+                map: map
+              }); 
+            }
+            document.getElementById('customer_location').value = location;
+        } 
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGMbZeZWNNv_6sBC-8O0WWYX4MOxRkwP8&callback=initMap"
+    async defer></script>
+  </head>
+
+  <body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top affix">
+        <div class="container-fluid">
+
+            <div class="navbar-header"> 
+                <a class="navbar-brand page-scroll" href="#page-top">Can İlaçlama</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="#about">Hakkımızda</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Servislerimiz</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">İletişim</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1>Bizimle eviniz güvende</h1>
+                <hr>
+                <p>Deneyimli ekibimiz ile artık hiç bir ev, iş yeri vb alan böcek istilası altında kalmıyor. Hiç bir zarar vermeksizin sizden başkasının ortamda yaşamasına izin vermiyoruz... </p>
+                <a href="#about" class="btn btn-primary btn-xl page-scroll">v</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Biz sizin için varız!</h2>
+                    <hr class="light">
+                    <p class="text-faded">Artık tek yapmanız gereken bir kayıt oluşturmak ve ekibimizin sizi tekrar aramasını beklemek ve artık endişe edecek bir şey kalmayacak. Çünkü kendimize güveniyoruz.</p>
+                    <button type="button" class="page-scroll btn btn-default btn-xl" data-toggle="modal" data-target="#myModal">
+                      Hizmet Talebi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">At Your Service</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                        <h3>Sturdy Templates</h3>
+                        <p class="text-muted">Our templates are updated regularly so they don't break.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
+                        <h3>Ready to Ship</h3>
+                        <p class="text-muted">You can use this theme as is, or you can make changes!</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
+                        <h3>Up to Date</h3>
+                        <p class="text-muted">We update dependencies to keep things fresh.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s"></i>
+                        <h3>Made with Love</h3>
+                        <p class="text-muted">You have to make your websites with love these days!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Let's Get In Touch!</h2>
+                    <hr class="primary">
+                    <p>Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 text-center">
+                    <i class="fa fa-phone fa-3x wow bounceIn"></i>
+                    <p>123-456-6789</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                    <p><a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          <div class="modal-body">
+              <div id="floating-panel">
+                <input id="address" type="textbox" value="Samsun">
+                <input id="submit" type="button" value="Geocode">
+              </div>
+              <div id="map"></div>
+            <%= simple_form_for @customers, url: 'missions', action: 'create', method: 'post' do |customer| %>
+            <%= customer.input :first_name %>
+            <%= customer.input :last_name %>
+            <%= customer.input :location %>
+            <%= customer.input :adress %>
+            <%= customer.input :phone %>
+            <%= customer.simple_fields_for :missions do |mission| %>
+              <%= mission.input :description, as: :text %>
+            <% end %>
+            <%= customer.button :submit %>
+          <% end %>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
