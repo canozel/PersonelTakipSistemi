@@ -3,15 +3,15 @@
 
 ### Koşullar
 
-1) Müşteri internet üzerinden hizmet talebinde bulunursa:
-	- Sisteme giriş yapmaksızın hizmet talebinde bulunabilir.(Üyelik gerektirmez.)
-	- Sisteme otomatik düşen bu çağrı, boştaki elemana aktarılır.Eleman bunu web sitesinden veya telefon uygulamasından görebilir.
-	- Teyit etmek için, görevi alan eleman müşteri tekrar arar.
+	1) Müşteri internet üzerinden hizmet talebinde bulunursa:
+		- Sisteme giriş yapmaksızın hizmet talebinde bulunabilir.(Üyelik gerektirmez.)
+		- Sisteme otomatik düşen bu çağrı, boştaki elemana aktarılır.Eleman bunu web sitesinden veya telefon uygulamasından görebilir.
+		- Teyit etmek için, görevi alan eleman müşteri tekrar arar.
 
-2) Müşteri telefon ile arayarak hizmet talebinde bulunursa:
-	- Yetkili kişi müşteri bilgilerini alarak sisteme girer. 
-	- Sisteme girilen görev otomatik olarak boştaki elemana aktarılır.
-	- Teyit gerektirmez.
+	2) Müşteri telefon ile arayarak hizmet talebinde bulunursa:
+		- Yetkili kişi müşteri bilgilerini alarak sisteme girer. 
+		- Sisteme girilen görev otomatik olarak boştaki elemana aktarılır.
+		- Teyit gerektirmez.
 
 ### İlaçlama Görevlisinin Sorumlulukları
 	- Kendisine bildirim olarak düşen görevi eğer teyit etmek için araması gerekiyorsa arama işlemini yapmalı.
@@ -20,6 +20,5 @@
 
 ### Müşteri Hizmetlerinin Görevi
 	- Müşteri talebi sisteme girmeli. (Müşteri bilgisi, Adres bilgisi, Hizmet Talebi Bilgisi vb.)
-	- Müşteri memnuniyeti için müşteri tekrar aranarak görevini tamamlamış İlaçlama Görevlisinin hizmet kalitesi hakkında
-	kısa bir anket ile Görevliye puanlama yapılır. Bu sayede çalışanların hizmet kalitesine göre maaşa ek ücret yanısması yapılarak, İlaçlama görevlilerinin hizmet kalitesini arttırması sağlanır.
+	- Müşteri memnuniyeti için müşteri tekrar aranarak görevini tamamlamış İlaçlama Görevlisinin hizmet kalitesi hakkında kısa bir anket ile Görevliye puanlama yapılır. Bu sayede çalışanların hizmet kalitesine göre maaşa ek ücret yanısması yapılarak, İlaçlama görevlilerinin hizmet kalitesini arttırması sağlanır.
 
