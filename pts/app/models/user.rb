@@ -7,11 +7,17 @@ class User < ActiveRecord::Base
 
   has_one :profile
 
+  scope :idle, -> { joins(:profile).where(state: false ).order("profiles.score desc").first }
+
   after_create :make_profile, on: :create
 
   def make_profile
     create_profile(
       score: "0"
       )
+  end
+
+  def full_name
+    profile.first_name.to_s + " " + profile.last_name.to_s
   end
 end
