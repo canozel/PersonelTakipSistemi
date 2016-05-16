@@ -11,7 +11,7 @@ class MissionsController < ApplicationController
   end
 
   def show
-
+    @lat, @lng = @mission.customer.location.split(",")
   end
 
   def customer_new
@@ -24,7 +24,7 @@ class MissionsController < ApplicationController
 
   def create
   	@customer = Customer.new(missions_params)
-    @customers.missions.first.user_id = User.idle.id #boştaki eleman
+    @customers.missions.last.user_id = User.idle.id #boştaki eleman
     if @customer.save 
       redirect_to customer_new, notice: "Kayıt başarıyla oluşturuldu!"
     else

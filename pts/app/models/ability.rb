@@ -10,6 +10,8 @@ class Ability
       elsif user.role?(:manager)
         can :read, :all
       elsif user.role?(:staff)
+        can :manage, Mission 
+        can :manage, Customer
       elsif user.role?(:accountant)
       else
       end

@@ -1,0 +1,141 @@
+<style>
+  #map {
+    width: 400px;
+    height: 400px;
+  }
+</style>
+
+<script>
+  var map;
+  var marker;
+  var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var labelIndex = 0;
+  function initMap() {
+    var customer_location = {lat: <%= @lat.scan(/\d+/).join(".") %> , lng: <%= @lng.scan(/\d+/).join(".") %> };
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: customer_location,
+      zoom: 7
+    });
+
+    var bounds = new google.maps.LatLngBounds(
+      {lat: 40, lng: 34}, customer_location);
+    map.fitBounds(bounds);
+
+        // Add a marker at the center of the map.
+    addMarker({lat: 40, lng: 34}, map);
+    addMarker(customer_location, map);
+  }
+
+      // Adds a marker to the map.
+    function addMarker(location, map) {
+        // Add the marker at the clicked location, and add the next-available label
+        // from the array of alphabetical characters.
+        if ( marker ) {
+          marker.setPosition(location);
+        } else {
+          marker = new google.maps.Marker({
+            position: location,
+            label: labels[labelIndex++ % labels.length],
+            map: map
+          }); 
+        }
+    } 
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGMbZeZWNNv_6sBC-8O0WWYX4MOxRkwP8&callback=initMap"
+
+async defer></script>
+
+
+<div class="<%= @mission.state ? 'panel panel-success' : 'panel panel-primary' %>">
+  <div class="panel-heading">
+    <h3 class="panel-title">Görev <%= @mission.state ? "Devam Ediyor" : "Sonlandı" %></h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-body">
+             Görev Açıklaması : <%= @mission.description %>
+          </div>
+        </div>        
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Görevli : <%= @mission.user.full_name %></h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
+              
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Konum</td>
+                        <td>#TODO</td>
+                      </tr>
+                      <tr>
+                        <td>Doğum Tarihi:</td>
+                        <td><%= @mission.user.profile.date_of_birth %></td>
+                      </tr>
+                      <tr>
+                        <td>Cinsiyet</td>
+                        <td><%= @mission.user.profile.gender %></td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td><%= @mission.user.email %></td>
+                      </tr>
+                      <tr>
+                        <td>Telefon Numarası</td>
+                        <td><%= @mission.user.profile.phone %></td> 
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Müşteri : <%= @mission.customer.full_name %></h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
+              
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Konum</td>
+                        <td>#TODO</td>
+                      </tr>
+                      <tr>
+                        <td>Telefon Numarası</td>
+                        <td><%= @mission.customer.phone %></td> 
+                      </tr>
+                      <tr>
+                        <td>Fatura</td>
+                        <td><%= @mission.total_fees %></td> 
+                      </tr>                  
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>      
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <div id="map"></div>
+    </div>
+  </div>
+</div>
+
+

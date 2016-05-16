@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :profile
-
+  has_many :missions
   scope :idle, -> { joins(:profile).where(state: false ).order("profiles.score desc").first }
 
   after_create :make_profile, on: :create
