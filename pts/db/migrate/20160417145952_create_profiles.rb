@@ -5,9 +5,11 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :date_of_birth
-      t.string :score
+      t.string :gender
+      t.string :phone
       t.string :location
-
+      t.string :score
+      
       t.timestamps null: false
     end
   end
