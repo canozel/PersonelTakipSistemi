@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     delete "/logout" => "devise/sessions#destroy", as: :destroy_user_session
   end
 
-  resources :missions 
+  resources :missions
+  resources :home
   resources :customers
   resources :users
   get 'statistics/index'
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'missions#customer_new'
+  root 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,30 +1,23 @@
 class MissionsController < ApplicationController
-  before_action :authenticate_user!, except: [:customer_new]
+  before_action :authenticate_user!, except: [:new]
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
-  layout "home_page", only: [:customer_new]
-
+  
   def index
     @missions = Mission.all
   end
 
   def new
+    @customer = Customer.new
+    @customer.missions.build
   end
 
   def show
     @lat, @lng = @mission.customer.location.split(",")
   end
 
-  def customer_new
-  	@customers = Customer.new
-    @customers.missions.build
-  end
-
-  def edit
-  end
-
   def create
-  	@customer = Customer.new(missions_params)
-    @customers.missions.last.user_id = User.idle.id #boştaki eleman
+    @customer = Customer.new(missions_params)
+    @customer.missions.last.user_id = User.idle.id #boştaki eleman
     if @customer.save 
       redirect_to customer_new, notice: "Kayıt başarıyla oluşturuldu!"
     else
@@ -32,15 +25,27 @@ class MissionsController < ApplicationController
     end
   end
 
+  def edit
+    redirect_to :back, alert: "Yetkisiz Erişim." unless permitted?
+  end
+
   def update
-  	
+  	redirect_to root_path, alert: "Yetkisiz Erişim." unless permitted?
+    if @mission.update(mission_params)
+      redirect_to @mission
+    end
   end
 
   def destroy
-  	
+  	@mission.delete
+    redirect_to :back
   end
 
   private
+
+  def permitted?
+    current_user == @mission.user
+  end
 
   def set_mission
     @mission = Mission.find(params[:id])

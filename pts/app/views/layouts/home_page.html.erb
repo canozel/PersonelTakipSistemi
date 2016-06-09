@@ -7,8 +7,8 @@
     <!-- Custom Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
-
+    
+    
     <!-- Plugin CSS -->
     <%= stylesheet_link_tag "application" ,'data-turbolinks-track' => true%>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
@@ -21,6 +21,10 @@
       }
       #map {
         height: 100%;
+      }
+      .map-base {
+        height: 300px;
+        margin-bottom: 20px;
       }
     </style>
 
@@ -74,14 +78,30 @@
             }
             document.getElementById('customer_location').value = location;
         } 
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGMbZeZWNNv_6sBC-8O0WWYX4MOxRkwP8&callback=initMap"
-    async defer></script>
-  </head>
+        
+        google.maps.event.addDomListener(window, 'load', initMap);
+        
+        $(document).on('pageload', function(){       
+          initMap();
+        }); 
 
+        setTimeout(function() {
+          google.maps.event.trigger(map, "resize");
+        }, 3000);
+
+        $(document).on("pagecreate", "#page-top", function () {
+          google.maps.event.addDomListener(window, 'load', initMap);
+        });
+
+    </script>
+     
+  </head>
 
   <body id="page-top">
     <%= yield %>
+    <a href="map.html" rel="external" data-ajax="false" >
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGMbZeZWNNv_6sBC-8O0WWYX4MOxRkwP8&callback=initMap"
+    async defer></script>
+
   </body>
 </html>

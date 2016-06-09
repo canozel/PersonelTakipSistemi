@@ -1,2 +1,17 @@
-<h1>Mission#new</h1>
-<p>Find me in app/views/mission/new.html.erb</p>
+
+                        <%= form_for @customer do |customer| %>
+                        <%= customer.text_field :first_name %>
+                        <%= customer.text_field :last_name %>
+                        <%= customer.text_field :phone %>
+
+                            <div id="map"></div>
+                          
+                        <%= customer.text_field :location %>
+                        <%= customer.text_field :adress %>
+                        <%= customer.simple_fields_for :missions do |mission| %>
+                          <%= mission.text_field :description, as: :text %>
+                        <% end %>
+
+                            <li><%= customer.button :submit, class: "btn btn-primary next-step" %></li>
+
+                    <% end %>

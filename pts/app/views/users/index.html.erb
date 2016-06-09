@@ -1,11 +1,14 @@
     <div class="row">
         <div class="panel panel-default widget">
             <div class="panel-heading">
-                <h3 class="panel-title">Görevler</h3><%= link_to "Yeni Görev Oluştur", new_mission_path %>
+                <h3 class="panel-title">Personeller</h3>
+                <% if user_signed_in? %>
+                  <%= link_to "Yeni Personel Oluştur", new_user_path %>
+                <% end %>
             </div>
             <div class="panel-body">
                 <ul class="list-group">
-                  <% @missions.each do |mission| %>
+                  <% @users.each do |user| %>
                     <li class="list-group-item panel-success">
                       <div class="row">
                         <div class="col-xs-2 col-md-1">
@@ -13,15 +16,13 @@
                         </div>
                         <div class="col-xs-10 col-md-11">
                           <div>
-                            <%= link_to mission.description, mission %>
-                            <div class="mic-info">
-                                <%= link_to "Görevli: " + User.find(mission.user_id).full_name, user_path(mission.user_id) %>
+                            <%= link_to user.full_name, user%>
                             </div>
                           </div>
                           <div class="action">
-                              <%= link_to "Düzenle", edit_mission_path(mission), class: "btn btn-primary btn-sm" %> 
                               <% if current_user.has_role?(:admin) %>
-                                <%= link_to "Sil", model_path(@model), class: "btn btn-danger btn-sm"%>
+                                <%= link_to "Düzenle", edit_user_path(user), class: "btn btn-primary btn-sm" %> 
+                                <%= link_to "Sil", user_path(user), class: "btn btn-danger btn-sm"%>
                               <% end %>
                           </div>
                     
