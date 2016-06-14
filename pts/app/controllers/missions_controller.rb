@@ -1,5 +1,5 @@
 class MissionsController < ApplicationController
-  before_action :authenticate_user!, except: [:new]
+  before_action :authenticate_user!, except: [:new, :create]
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
   
   def index
@@ -18,8 +18,9 @@ class MissionsController < ApplicationController
   def create
     @customer = Customer.new(missions_params)
     @customer.missions.last.user_id = User.idle.id #boştaki eleman
+    binding.pry
     if @customer.save 
-      redirect_to customer_new, notice: "Kayıt başarıyla oluşturuldu!"
+      redirect_to :back , notice: "Kayıt başarıyla oluşturuldu!"
     else
       redirect_to customer_new, alert: "Tekrar deneyiniz."
     end
