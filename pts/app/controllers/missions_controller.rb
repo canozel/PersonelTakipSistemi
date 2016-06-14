@@ -3,7 +3,7 @@ class MissionsController < ApplicationController
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
   
   def index
-    @missions = Mission.all
+    @missions = Mission.paginate(:page => params[:page], :per_page => 5)
   end
 
   def new

@@ -38,11 +38,11 @@ ActiveRecord::Schema.define(version: 20160417152042) do
   create_table "missions", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
     t.integer  "customer_id", limit: 4
-    t.string   "description", limit: 255
+    t.text     "description", limit: 65535
     t.boolean  "state"
     t.string   "total_fees",  limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "profiles", force: :cascade do |t|

@@ -3,7 +3,7 @@ class CreateMissions < ActiveRecord::Migration
     create_table :missions do |t|
       t.integer :user_id
       t.integer :customer_id
-      t.string  :description
+      t.text  :description
       t.boolean :state
       t.string  :total_fees
 
