@@ -17,8 +17,8 @@ class MissionsController < ApplicationController
 
   def create
     @customer = Customer.new(missions_params)
-    @customer.missions.last.user_id = User.idle.id #boştaki eleman
-    binding.pry
+    @customer.missions.last.user_id = User.idle.class == "User" ? User.idle.id : User.idle.first.id  #boştaki eleman
+    @customer.missions.state = true
     if @customer.save 
       redirect_to :back , notice: "Kayıt başarıyla oluşturuldu!"
     else

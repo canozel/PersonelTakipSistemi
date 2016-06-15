@@ -28,6 +28,7 @@ Utility Classes
   CUSTOM COLORS
 *** */
   .cus-orange {background:#F05F40 !important;}
+  .cus-orange-text {color:#F05F40 !important;}
 /* *** */
 
 nav#mainNav {
@@ -179,3 +180,27 @@ span.round-tab:hover {
     }
 }
 /* *** */
+
+.create-button {
+	float: right;
+    margin-top: -24px;
+}
+.action {
+	margin-top: 15px;
+}
+.action a {
+	margin-left: 5px;
+}
+.pt-action {
+	margin-right: 10px;
+    margin-top: 6px;
+}
+.gorevler-aciklama {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.table-overflow {overflow-x: scroll;}
+.full-width {width: 100% !important;}

@@ -3,7 +3,9 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Personeller</h3>
                 <% if user_signed_in? %>
-                  <%= link_to "Yeni Personel Oluştur", new_user_path %>
+                  <%= link_to new_user_path, class: "create-button" do%>
+                      <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Yeni Personel Oluştur">+</button>
+                  <%end%>
                 <% end %>
             </div>
             <div class="panel-body">
@@ -19,9 +21,9 @@
                             <%= link_to user.full_name, user%>
                             </div>
                           </div>
-                          <div class="action">
+                          <div class="pt-action pull-right">
                               <% if current_user.has_role?(:admin) %>
-                                <%= link_to "Düzenle", edit_user_path(user), class: "btn btn-primary btn-sm" %> 
+                                <%= link_to "Düzenle", edit_user_path(user), class: "btn btn-info btn-sm" %> 
                                 <%= link_to "Sil", user_path(user), class: "btn btn-danger btn-sm"%>
                               <% end %>
                           </div>
@@ -36,3 +38,8 @@
         </div>
     </div>
 
+<script type="text/javascript">
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>

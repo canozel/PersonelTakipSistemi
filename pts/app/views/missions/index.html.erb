@@ -1,37 +1,45 @@
     <div class="row">
         <div class="panel panel-default widget">
             <div class="panel-heading">
-                <h3 class="panel-title">Görevler</h3><%= link_to "Yeni Görev Oluştur", new_mission_path %>
+                <h3 class="panel-title">Görevler</h3><%= link_to new_mission_path, class: "create-button" do%>
+                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Yeni Görev Ekle">+</button>
+                <%end%>
             </div>
             <div class="panel-body">
                 <ul class="list-group">
-                  <% @missions.each do |mission| %>
+                  <% @missions.reverse.each do |mission| %>
                     <li class="list-group-item panel-success">
                       <div class="row">
                         <div class="col-xs-2 col-md-1">
                           <img src="http://placehold.it/80" class="img-circle img-responsive" alt="" />
                         </div>
                         <div class="col-xs-10 col-md-11">
-                          <div>
-                            <%= link_to mission.description, mission %>
+                          <div class="col-xs-9">
+                            <div class="gorevler-aciklama"><%= link_to mission.description, mission, class: "black-text" %></div>
                             <div class="mic-info">
-                                <%= link_to "Görevli: " + User.find(mission.user_id).full_name, user_path(mission.user_id) %>
+                                <%= link_to "Görevli: " + User.find(mission.user_id).full_name, user_path(mission.user_id), class: "black-text" %>
                             </div>
                           </div>
-                          <div class="action">
-                              <%= link_to "Düzenle", edit_mission_path(mission), class: "btn btn-primary btn-sm" %> 
-                              <% if current_user.has_role?(:admin) %>
-                                <%= link_to "Sil", model_path(@model), class: "btn btn-danger btn-sm"%>
-                              <% end %>
+                          <div class="col-xs-3 action">
+                            <% if current_user.has_role?(:admin) %>
+                              <%= link_to "Sil",edit_mission_path(mission), class: "btn btn-danger btn-sm pull-right"%>
+                            <% end %>
+                            <%= link_to "Düzenle", edit_mission_path(mission), class: "btn btn-info btn-sm pull-right" %> 
+                              
                           </div>
-                    
                   <% end %>
                             </div>
                         </div>
                     </li>
                 </ul>
-                <a href="#" class="btn btn-primary btn-sm btn-block" role="button"><span class="glyphicon glyphicon-refresh"></span> More</a>
+
+
+                <%= will_paginate @missions, renderer: BootstrapPagination::Rails %>
             </div>
         </div>
     </div>
-
+<script type="text/javascript">
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>

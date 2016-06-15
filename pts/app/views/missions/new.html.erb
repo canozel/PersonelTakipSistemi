@@ -78,8 +78,12 @@
       google.maps.event.addDomListener(window, 'load', initMap);
     });
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGMbZeZWNNv_6sBC-8O0WWYX4MOxRkwP8&callback=initMap" async defer></script>
 
-                            <div id="map"></div>
+<div class="panel panel-default">
+  <div class="panel-heading"></div>
+  <div class="panel-body">
+    <div class="map-base"><div id="map"></div></div>
 
                         <%= simple_form_for @customer, :url => missions_path, :method => :post do |customer| %>
                         <%= customer.input :first_name %>
@@ -96,3 +100,7 @@
                             <li><%= customer.button :submit, class: "btn btn-primary next-step" %></li>
 
                     <% end %>
+  </div>
+</div>
+
+                            
