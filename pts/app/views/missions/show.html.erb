@@ -11,7 +11,7 @@
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var labelIndex = 0;
   function initMap() {
-    var customer_location = {lat: <%= @lat.scan(/\d+/).join(".") %> , lng: <%= @lng.scan(/\d+/).join(".") %> };
+    var customer_location = {lat: <%= @cus_lat.scan(/\d+/).join(".") %> , lng: <%= @cus_lng.scan(/\d+/).join(".") %> };
     map = new google.maps.Map(document.getElementById('map'), {
       center: customer_location,
       zoom: 7
@@ -48,7 +48,7 @@
   function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 7,
-      center: {lat: <%= @lat.scan(/\d+/).join(".") %> , lng: <%= @lng.scan(/\d+/).join(".") %> }
+      center: {lat: <%= @cus_lat.scan(/\d+/).join(".") %> , lng: <%= @cus_lng.scan(/\d+/).join(".") %> }
     });
 
     //map.controls[google.maps.ControlPosition.TOP_CENTER].push(
@@ -57,13 +57,13 @@
     marker1 = new google.maps.Marker({
       map: map,
       draggable: true,
-      position: {lat: <%= @lat.scan(/\d+/).join(".") %> , lng: <%= @lng.scan(/\d+/).join(".") %> }
+      position: {lat: <%= @cus_lat.scan(/\d+/).join(".") %> , lng: <%= @cus_lng.scan(/\d+/).join(".") %> }
     });
 
     marker2 = new google.maps.Marker({
       map: map,
       draggable: true,
-      position: {lat: 40, lng: 31}
+      position: {lat: <%= @user_lat.scan(/\d+/).join(".") %> , lng: <%= @user_lng.scan(/\d+/).join(".") %> }
     });
 
     //var bounds = new google.maps.LatLngBounds(

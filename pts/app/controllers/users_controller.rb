@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all
+    @users = User.paginate(:page => params[:page], :per_page => 5)
   end
 
   def new
@@ -10,6 +11,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @contunied = @profile.user.missions.where(state: true).paginate(:page => params[:contunied_page], :per_page => 5)
+    @finished = @profile.user.missions.where(state: false).paginate(:page => params[:finished_page], :per_page => 5)
   end
 
   def create
@@ -43,8 +46,8 @@ class UsersController < ApplicationController
     current_user == @user
   end
 
-  def set_mission
-    @user = Profile.find(params[:id])
+  def set_user
+    @profile = Profile.find(params[:id])
   end
 
   def users_params

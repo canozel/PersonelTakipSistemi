@@ -37,11 +37,16 @@
   }
 
   function geocodeAddress(geocoder, resultsMap) {
-    var address = document.getElementById('address').value;
+    var address = document.getElementById('customer_adress').value;
     geocoder.geocode({'address': address}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         resultsMap.setCenter(results[0].geometry.location);
-        
+        resultsMap.setZoom(15);
+        if (marker && marker.setMap) marker.setMap(null);
+          marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+          });
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
@@ -85,21 +90,17 @@
   <div class="panel-body">
     <div class="map-base"><div id="map"></div></div>
 
-                        <%= simple_form_for @customer, :url => missions_path, :method => :post do |customer| %>
-                        <%= customer.input :first_name %>
-                        <%= customer.input :last_name %>
-                        <%= customer.input :phone %>
-
-                          
-                        <%= customer.input :location %>
-                        <%= customer.input :adress %>
-                        <%= customer.simple_fields_for :missions do |mission| %>
-                          <%= mission.input :description, as: :text %>
-                        <% end %>
-
-                            <li><%= customer.button :submit, class: "btn btn-primary next-step" %></li>
-
-                    <% end %>
+   <%= simple_form_for @customer, :url => missions_path, :method => :post do |customer| %>
+    <%= customer.input :first_name, label: 'İsminiz'%>
+    <%= customer.input :last_name, label: 'Soy İsminiz' %>
+    <%= customer.input :phone, label: 'Telefon Numarananız' %>
+    <%= customer.input :location, :as => :hidden %>
+    <%= customer.input :adress, label: 'Adres Bilgisi' %><button type="button" id= "submit" class="btn-md btn-primary ">Haritada Ara</button>
+    <%= customer.simple_fields_for :missions do |mission| %>
+      <%= mission.input :description, as: :text, label: 'Hizmet Talebiniz' %>
+    <% end %>
+    <li><%= customer.submit "Kaydet", class: "btn btn-primary next-step" %></li>
+  <% end %>
   </div>
 </div>
 

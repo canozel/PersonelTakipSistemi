@@ -2,7 +2,6 @@ class SessionsController < Devise::SessionsController
   protect_from_forgery with: :null_session, if: Proc.new {|c| c.request.format.json? }
 
   def create
-    binding.pry
     user = User.find_for_database_authentication(email: params[:email])
     if user && user.valid_password?(params[:password])
       token = user.ensure_authentication_token

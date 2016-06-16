@@ -12,15 +12,16 @@ class MissionsController < ApplicationController
   end
 
   def show
-    @lat, @lng = @mission.customer.location.split(",")
+    @cus_lat, @cus_lng = @mission.customer.location.split(",")
+    @user_lat, @user_lng = @mission.user.profile.location.split(",");
   end
 
   def create
     @customer = Customer.new(missions_params)
     @customer.missions.last.user_id = User.idle.class == "User" ? User.idle.id : User.idle.first.id  #boştaki eleman
-    @customer.missions.state = true
+    @customer.missions.last.state = true
     if @customer.save 
-      redirect_to :back , notice: "Kayıt başarıyla oluşturuldu!"
+      redirect_to root_path , notice: "Kayıt başarıyla oluşturuldu!"
     else
       redirect_to customer_new, alert: "Tekrar deneyiniz."
     end
