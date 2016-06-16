@@ -11,8 +11,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    @contunied = @profile.user.missions.where(state: true).paginate(:page => params[:contunied_page], :per_page => 5)
-    @finished = @profile.user.missions.where(state: false).paginate(:page => params[:finished_page], :per_page => 5)
+    respond_to do |format|
+      format.html {
+        @contunied = @profile.user.missions.where(state: true).paginate(:page => params[:contunied_page], :per_page => 5)
+        @finished = @profile.user.missions.where(state: false).paginate(:page => params[:finished_page], :per_page => 5)
+      }
+      format.json { render json: @profile.user.missions.where(state: true) }
+    end
   end
 
   def create
