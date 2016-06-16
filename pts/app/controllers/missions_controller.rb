@@ -1,5 +1,5 @@
 class MissionsController < ApplicationController
-  before_action :authenticate_user!, except: [:new, :create]
+  before_action :authenticate_user!, except: [:new, :create, :show]
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
   
   def index

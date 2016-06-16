@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -16,7 +16,13 @@ class UsersController < ApplicationController
         @contunied = @profile.user.missions.where(state: true).paginate(:page => params[:contunied_page], :per_page => 5)
         @finished = @profile.user.missions.where(state: false).paginate(:page => params[:finished_page], :per_page => 5)
       }
-      format.json { render json: @profile.user.missions.where(state: true) }
+      format.json {
+        if verified_request?
+          render json: @profile.user.missions.where(state: true)
+        else
+          render nothing: true, status: :unauthorized
+        end
+      }
     end
   end
 
